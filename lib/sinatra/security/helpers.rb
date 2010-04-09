@@ -37,6 +37,10 @@ module Sinatra
       def ensure_current_user(user)
         halt 404 unless user == current_user
       end
+
+      def logout!
+        session.delete(:user) 
+      end
     end
   end
 end

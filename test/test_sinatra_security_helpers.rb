@@ -110,4 +110,13 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
       end
     end
   end
+
+  describe "#logout" do
+    should "set the remove the session[:user]" do
+      @context.session[:user] = 1
+      @context.logout!
+
+      assert ! @context.session[:user]
+    end
+  end
 end
