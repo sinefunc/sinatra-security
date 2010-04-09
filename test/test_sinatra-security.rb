@@ -11,8 +11,6 @@ class BasicApp < Sinatra::Base
 
   get '/private' do
     require_login
-    # session[:return_to] = request.fullpath
-    # redirect '/login'
   end
 end
 
