@@ -5,22 +5,21 @@ This gem just provides you with the standard authentication mechanisms you would
 
 How to use
 ==========
-  
-    # in your terminal
-    [sudo] gem install sinatra-security
+ 
+    # taken from examples/classic.rb
 
-    # in your sinatra app
-    require 'sinatra'
-    require 'sinatra/security'
+    get "/" do
+      haml :home
+    end
 
     get "/public" do
       "Hello public world"
     end
 
     get "/private" do
-      login_required
+      require_login
 
-      "Hello private world"
+      "Hello private world <a href='/logout'>Logout</a>"
     end
 
     get "/login" do
