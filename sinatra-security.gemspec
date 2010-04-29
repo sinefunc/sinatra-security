@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sinatra-security}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Cyril David"]
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "lib/sinatra/security.rb",
      "lib/sinatra/security/helpers.rb",
      "lib/sinatra/security/identification.rb",
+     "lib/sinatra/security/login_field.rb",
      "lib/sinatra/security/password.rb",
      "lib/sinatra/security/user.rb",
      "lib/sinatra/security/validations.rb",
