@@ -8,8 +8,12 @@ end
 
 module Sinatra
   module Security
-    autoload :Helpers, 'sinatra/security/helpers'
-    
+    autoload :Helpers,        'sinatra/security/helpers'
+    autoload :User,           'sinatra/security/user'
+    autoload :Validations,    'sinatra/security/validations'
+    autoload :Password,       'sinatra/security/password'
+    autoload :Identification, 'sinatra/security/identification'
+
     def self.registered(app)
       app.helpers Helpers
 
@@ -17,7 +21,7 @@ module Sinatra
         if authenticate(params)
           redirect_to_stored
         else
-          session[:error] = "We are sorry: the information supplied is not valid."
+          session[:error] = "Wrong Username/Email and Password combination."
           haml :login
         end
       end

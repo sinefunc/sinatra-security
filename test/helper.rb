@@ -25,9 +25,30 @@ end
 # Test Fixtures appear here
 class User
   attr :id
+  attr_accessor :email, :password
 
-  def initialize(id)
+  def initialize(id = nil)
     @id = id
   end
+
+  def errors
+    @errors ||= []
+  end
+
+protected
+  def assert(value, error)
+    value or errors.push(error) && false
+  end
+
+  def assert_present(att, error = [att, :not_present])
+    assert(!send(att).to_s.empty?, error)
+  end
+
+  def assert_format(att, format, error = [att, :format])
+    if assert_present(att, error)
+      assert(send(att).to_s.match(format), error)
+    end
+  end
+
 end
 

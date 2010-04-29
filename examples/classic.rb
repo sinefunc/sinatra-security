@@ -1,11 +1,19 @@
 require 'sinatra'
 require 'sinatra/security'
 
-class User
+class ::User
   attr :id
+  
+  def self.attribute(att)
+    @attributes ||= []
+    @attributes << att
+    attr_accessor att
+  end
+  include Sinatra::Security::User
 
-  def self.authenticate(user, pass)
-    User.new(42) if [ user, pass ] == [ 'quentin', 'test' ]  
+  # we override this for the sake of example
+  def self.find_by_login(login)
+    User.new(42) if login ==  'quentin'
   end
   
   def self.[](id)
@@ -14,6 +22,7 @@ class User
 
   def initialize(id = nil)
     @id = id
+    @crypted_password = Sinatra::Security::Password::Hashing.update('test')
   end
 end
 

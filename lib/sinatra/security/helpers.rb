@@ -11,7 +11,7 @@ module Sinatra
       end
 
       def authenticate(params)
-        if user = User.authenticate(params[:username], params[:password])
+        if user = ::User.authenticate(params[:username], params[:password])
           session[:user] = user.id
         end
       end
@@ -27,7 +27,7 @@ module Sinatra
       end
 
       def current_user
-        @current_user ||= User[session[:user]] if session[:user]
+        @current_user ||= ::User[session[:user]] if session[:user]
       end
 
       def logged_in?
