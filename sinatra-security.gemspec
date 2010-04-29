@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sinatra-security}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Cyril David"]
-  s.date = %q{2010-04-09}
+  s.date = %q{2010-04-29}
   s.description = %q{For use with Sinatra + Monk + OHM}
   s.email = %q{cyx.ucron@gmail.com}
   s.extra_rdoc_files = [
@@ -28,10 +28,16 @@ Gem::Specification.new do |s|
      "examples/views/login.haml",
      "lib/sinatra/security.rb",
      "lib/sinatra/security/helpers.rb",
+     "lib/sinatra/security/identification.rb",
+     "lib/sinatra/security/password.rb",
+     "lib/sinatra/security/user.rb",
+     "lib/sinatra/security/validations.rb",
      "sinatra-security.gemspec",
      "test/helper.rb",
+     "test/test_password.rb",
      "test/test_sinatra-security.rb",
      "test/test_sinatra_security_helpers.rb",
+     "test/test_validations.rb",
      "views/login.haml"
   ]
   s.homepage = %q{http://github.com/cyx/sinatra-security}
@@ -41,8 +47,10 @@ Gem::Specification.new do |s|
   s.summary = %q{Sinatra authentication extension}
   s.test_files = [
     "test/helper.rb",
+     "test/test_password.rb",
      "test/test_sinatra-security.rb",
      "test/test_sinatra_security_helpers.rb",
+     "test/test_validations.rb",
      "examples/classic.rb"
   ]
 
