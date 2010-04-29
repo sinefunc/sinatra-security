@@ -2,7 +2,18 @@ module Sinatra
   module Security
     module Validations
       EMAIL_FORMAT = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-
+      
+      def validate
+        # TODO : email requirement should only be done if
+        # LoginField.attr_name == :email maybe
+        # then just let users expilicity declare there own 
+        # validation rules
+        assert_login_using_email :email
+        assert_password :password
+        
+        super
+      end
+      
     protected
       def assert_login_using_email(att, error = [att, :not_email])
         if assert_present att

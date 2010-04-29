@@ -5,6 +5,8 @@ class ExecutionContext < Struct.new(:session, :request)
   end
 end
 
+include TestFixtures
+
 class TestSinatraSecurityHelpers < Test::Unit::TestCase
   setup do
     @context = ExecutionContext.new({})

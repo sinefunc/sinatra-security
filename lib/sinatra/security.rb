@@ -13,6 +13,7 @@ module Sinatra
     autoload :Validations,    'sinatra/security/validations'
     autoload :Password,       'sinatra/security/password'
     autoload :Identification, 'sinatra/security/identification'
+    autoload :LoginField,     'sinatra/security/login_field'
 
     def self.registered(app)
       app.helpers Helpers

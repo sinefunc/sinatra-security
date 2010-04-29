@@ -1,6 +1,6 @@
 require "helper"
 
-class UserWithEmailValidation < User
+class UserWithEmailValidation < TestFixtures::User
   include Sinatra::Security::Validations
  
   def initialize
@@ -19,9 +19,8 @@ class UserWithEmailValidation < User
   end
 end
 
-class UserWithPasswordValidation < User
+class UserWithPasswordValidation < TestFixtures::User
   include Sinatra::Security::Validations
-  attr_accessor :password_confirmation
 
   def initialize
     super
@@ -33,6 +32,14 @@ class UserWithPasswordValidation < User
     assert_password :password
   end
   
+  def errors
+    @errors ||= []
+  end
+end
+
+class UserDefaultValidation < TestFixtures::User
+  include Sinatra::Security::Validations
+
   def errors
     @errors ||= []
   end
@@ -153,6 +160,53 @@ class TestValidations < Test::Unit::TestCase
         @user.stubs(:new?).returns(false)
         @user.validate
         assert @user.errors.empty?
+      end
+    end
+  end
+
+  context "the default validations" do
+    setup do
+      @user = UserDefaultValidation.new
+      @user.stubs(:new?).returns(true)
+    end
+
+    should "assert presence of email" do
+      @user.validate
+
+      assert @user.errors.include?([:email, :not_present])
+    end
+
+    should "assert the email is an email" do
+      @user.email = '_foobar_'
+      @user.validate
+
+      assert @user.errors.include?([:email, :not_email])
+    end
+
+    should "assert the email is unique" do
+      @user.email = 'foo@bar.com'
+      @user.expects(:assert_unique).with(:email).returns(false)
+      @user.validate
+    end
+
+    should "assert the password is there" do
+      @user.password = ''
+      @user.validate
+      assert @user.errors.include?([:password, :not_present])
+    end
+
+    should "assert the password is confirmed" do
+      @user.password = 'aoeu'
+      @user.validate
+      assert @user.errors.include?([:password, :not_confirmed])
+    end
+
+    context "when the user is existing" do
+      should "not require a password" do
+        @user.stubs(:new?).returns(false)
+        @user.validate
+
+        assert ! @user.errors.include?([:password, :not_presen])
       end
     end
   end
