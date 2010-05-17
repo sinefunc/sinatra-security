@@ -20,7 +20,9 @@ module Sinatra
         if logged_in?
           return true
         else
-          session[:return_to] = request.fullpath
+          if should_return_to?(request.fullpath)
+            session[:return_to] = request.fullpath
+          end
           redirect "/login"
           return false
         end
@@ -40,6 +42,10 @@ module Sinatra
 
       def logout!
         session.delete(:user) 
+      end
+
+      def should_return_to?(path)
+        !(path =~ /(jpe?g|png|gif|css|js)$/)
       end
     end
   end

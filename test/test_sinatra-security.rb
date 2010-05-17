@@ -12,6 +12,24 @@ class BasicApp < Sinatra::Base
   get '/private' do
     require_login
   end
+
+  get '/css/main.css' do
+    require_login
+
+    "body { color: black }"
+  end
+
+  get '/images/:image' do
+    require_login
+
+    params[:image]
+  end
+
+  get '/js/main.js' do
+    require_login
+
+    "alert('hey')"
+  end
 end
 
 class TestSinatraSecurity < Test::Unit::TestCase
@@ -61,6 +79,29 @@ class TestSinatraSecurity < Test::Unit::TestCase
       end
     end
   end
+
+  describe "accessing a private url with GET but as (js|css|png) etc" do
+    should "not save any return_to" do
+      get "/css/main.css"
+      assert ! session[:return_to]
+
+      get "/js/main.js"
+      assert ! session[:return_to]
+
+      get "/images/test.png"
+      assert ! session[:return_to]
+
+      get "/images/test.gif"
+      assert ! session[:return_to]
+
+      get "/images/test.jpg"
+      assert ! session[:return_to]
+
+      get "/images/test.jpeg"
+      assert ! session[:return_to]
+    end
+  end
+
 
   describe "being redirected and then logging in" do
     setup do
