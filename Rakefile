@@ -8,7 +8,7 @@ begin
     gem.summary = %Q{Sinatra authentication extension}
     gem.description = %Q{For use with Sinatra + Monk + OHM}
     gem.email = "cyx.ucron@gmail.com"
-    gem.homepage = "http://github.com/cyx/sinatra-security"
+    gem.homepage = "http://github.com/sinefunc/sinatra-security"
     gem.authors = ["Cyril David"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
