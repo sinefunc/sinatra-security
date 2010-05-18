@@ -4,6 +4,10 @@ class BasicApp < Sinatra::Base
   use Rack::Session::Cookie
 
   register Sinatra::Security
+  
+  get '/login' do
+    "<h1>Login Page</h1>"
+  end
 
   get '/public' do
     "Hello Public World"
@@ -127,9 +131,9 @@ class TestSinatraSecurity < Test::Unit::TestCase
       post '/login', username: 'quentin', password: 'test'
     end
 
-    should "redirect render /login" do
-      assert_match %r{<h1>Login Page</h1>}, last_response.body
+    should "redirect to /login" do
+      assert_equal 302, last_response.status
+      assert_equal '/login', last_response.headers['Location']
     end
-
   end
 end

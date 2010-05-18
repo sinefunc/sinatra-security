@@ -1,11 +1,5 @@
 require 'sinatra/base'
 
-begin
-  require 'haml'
-rescue LoadError
-  raise "In order to use sinatra/security, make sure you have haml installed"
-end
-
 module Sinatra
   module Security
     autoload :Helpers,        'sinatra/security/helpers'
@@ -23,7 +17,7 @@ module Sinatra
           redirect_to_stored
         else
           session[:error] = "Wrong Username/Email and Password combination."
-          haml :login
+          redirect '/login'
         end
       end
     end
