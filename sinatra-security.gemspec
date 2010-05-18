@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{sinatra-security}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Cyril David"]
@@ -41,10 +41,10 @@ Gem::Specification.new do |s|
      "test/test_validations.rb",
      "views/login.haml"
   ]
-  s.homepage = %q{http://github.com/cyx/sinatra-security}
+  s.homepage = %q{http://github.com/sinefunc/sinatra-security}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{Sinatra authentication extension}
   s.test_files = [
     "test/helper.rb",
