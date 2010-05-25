@@ -3,6 +3,8 @@ Sinatra Security
 
 This gem just provides you with the standard authentication mechanisms you would expect from your typical app.
 
+Read the full documentation at [http://labs.sinefunc.com/sinatra-security/doc](http://labs.sinefunc.com/sinatra-security/doc).
+
 Basic usage
 -----------
  
