@@ -44,7 +44,7 @@ module Sinatra
     #     # Users here
     #   end
     #
-    # @param [#to_s] path_prefix a string to match again the start of 
+    # @param [#to_s] path_prefix a string to match against the start of 
     #                request.fullpath
     # @return [nil]
     def require_login(path_prefix)
