@@ -36,11 +36,19 @@ module Sinatra
       # Used internally by User::authenticate to find the user given the 
       # `:email` value.
       #
-      # @param [#to_s] login the value of `:email` in your datastore.
+      # @param [#to_s] login the value of `:email` in your datastore. You may
+      #                also override the key used. 
       # @return [User] an instance of User if found.
       # @return [nil]  if no user found with the given login value.
+      #
+      # @see Sinatra::Security::LoginField::attr_name
       def find_by_login(login)
-        find(:email => login).first
+        find(__LOGIN_FIELD__ => login).first
+      end
+
+    protected
+      def __LOGIN_FIELD__
+        Sinatra::Security::LoginField.attr_name 
       end
     end
   end
