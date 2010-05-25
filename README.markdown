@@ -3,8 +3,8 @@ Sinatra Security
 
 This gem just provides you with the standard authentication mechanisms you would expect from your typical app.
 
-How to use
-==========
+Basic usage
+-----------
  
     # taken from examples/classic.rb
 
@@ -27,6 +27,51 @@ How to use
 
       haml :login
     end
+
+Some advanced stuff you might want make use of
+----------------------------------------------
+    
+    require 'sinatra'
+    require 'sinatra/security'
+    require 'ohm'
+    
+    Sinatra::Security::LoginField.attr_name :login
+
+    class User < Ohm::Model
+      include Sinatra::Security::User
+    end
+
+    user = User.create(:login => "quentin", :password => "test")
+    user == User.authenticate("quentin", "test")
+    # => true
+  
+    # in our sinatra context...
+    # now let's secure a chunk of our pages
+    require_login '/admin/users'
+
+    get '/admin/users/:id' do |id|
+      # do something here
+    end
+
+    get '/admin/posts' do
+      # posts list here
+    end
+
+    # we can also do basic atomic authorization checks for our objects
+
+    get '/admin/posts/:id/edit' do |id|
+      post = Post[id]
+      ensure_current_user post.author # does a `halt 404` if this fails
+
+      # now we proceed as normal, if the author is indeed the curerent user
+    end
+    
+    # a quick demo of how you might want to logout
+    get '/logout' do
+      logout!
+      redirect '/'
+    end
+
 
 Note on Patches/Pull Requests
 -----------------------------
