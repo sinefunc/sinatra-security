@@ -28,8 +28,8 @@ Basic usage
       haml :login
     end
 
-Some advanced stuff you might want make use of
-----------------------------------------------
+Some advanced stuff you might want to do
+----------------------------------------
     
     require 'sinatra'
     require 'sinatra/security'
