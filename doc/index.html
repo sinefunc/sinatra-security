@@ -45,7 +45,9 @@
 
 <p>This gem just provides you with the standard authentication mechanisms you would expect from your typical app.</p>
 
-<h1>How to use</h1>
+<p>Read the full documentation at <a href="http://labs.sinefunc.com/sinatra-security/doc">http://labs.sinefunc.com/sinatra-security/doc</a>.</p>
+
+<h2>Basic usage</h2>
 
 <pre class="code"><span class='comment'># taken from examples/classic.rb
 </span>
@@ -70,6 +72,52 @@
 <span class='kw'>end</span>
 </pre>
 
+<h2>Some advanced stuff you might want to do</h2>
+
+<pre class="code"><span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sinatra</span><span class='tstring_end'>'</span></span>
+<span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>sinatra/security</span><span class='tstring_end'>'</span></span>
+<span class='id require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ohm</span><span class='tstring_end'>'</span></span>
+
+<span class='comment'># we set a different attribute name here. 
+</span><span class='comment'># the default used is :email, but we can choose whatever we want.
+</span><span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Security</span><span class='op'>::</span><span class='const'>LoginField</span><span class='period'>.</span><span class='id attr_name'>attr_name</span> <span class='symbol'>:login</span>
+
+<span class='kw'>class</span> <span class='const'>User</span> <span class='op'>&lt;</span> <span class='const'>Ohm</span><span class='op'>::</span><span class='const'>Model</span>
+  <span class='id include'>include</span> <span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Security</span><span class='op'>::</span><span class='const'>User</span>
+<span class='kw'>end</span>
+
+<span class='id user'>user</span> <span class='op'>=</span> <span class='const'>User</span><span class='period'>.</span><span class='id create'>create</span><span class='lparen'>(</span><span class='symbol'>:login</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>quentin</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id user'>user</span> <span class='op'>==</span> <span class='const'>User</span><span class='period'>.</span><span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>quentin</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='comment'># =&gt; true
+</span>
+<span class='comment'># in our sinatra context...
+</span><span class='comment'># now let's secure a chunk of our pages
+</span><span class='id require_login'>require_login</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/admin/users</span><span class='tstring_end'>'</span></span>
+
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/admin/users/:id</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+  <span class='comment'># do something here
+</span><span class='kw'>end</span>
+
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/admin/posts</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+  <span class='comment'># posts list here
+</span><span class='kw'>end</span>
+
+<span class='comment'># we can also do basic atomic authorization checks for our objects
+</span>
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/admin/posts/:id/edit</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+  <span class='id post'>post</span> <span class='op'>=</span> <span class='const'>Post</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span>
+  <span class='id ensure_current_user'>ensure_current_user</span> <span class='id post'>post</span><span class='period'>.</span><span class='id author'>author</span> <span class='comment'># does a `halt 404` if this fails
+</span>
+  <span class='comment'># now we proceed as normal, if the author is indeed the curerent user
+</span><span class='kw'>end</span>
+
+<span class='comment'># a quick demo of how you might want to logout
+</span><span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/logout</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+  <span class='id logout!'>logout!</span>
+  <span class='id redirect'>redirect</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span>
+<span class='kw'>end</span>
+</pre>
+
 <h2>Note on Patches/Pull Requests</h2>
 
 <ul>
@@ -88,7 +136,7 @@ future version unintentionally.</li>
 <p>Copyright (c) 2010 Cyril David. See LICENSE for details.</p></div></div>
     
     <div id="footer">
-  Generated on Wed May 26 06:01:16 2010 by 
+  Generated on Wed May 26 06:13:46 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.9.1).
 </div>
