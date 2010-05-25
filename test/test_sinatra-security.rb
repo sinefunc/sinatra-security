@@ -5,6 +5,8 @@ class BasicApp < Sinatra::Base
 
   register Sinatra::Security
   
+  require_login '/mass'
+
   get '/login' do
     "<h1>Login Page</h1>"
   end
@@ -15,6 +17,14 @@ class BasicApp < Sinatra::Base
 
   get '/private' do
     require_login
+  end
+  
+  get '/mass/private1' do
+    "Private 1"
+  end
+
+  get '/mass/private2' do
+    "Private 2"
   end
 
   get '/css/main.css' do
@@ -136,4 +146,23 @@ class TestSinatraSecurity < Test::Unit::TestCase
       assert_equal '/login', last_response.headers['Location']
     end
   end
+
+  describe "going to /mass/private1" do
+    should "redirect to /login" do
+      get '/mass/private1'
+
+      assert_equal 302, last_response.status
+      assert_equal '/login', last_response.headers['Location']
+    end
+  end
+
+  describe "going to /mass/private2" do
+    should "redirect to /login" do
+      get '/mass/private2'
+
+      assert_equal 302, last_response.status
+      assert_equal '/login', last_response.headers['Location']
+    end
+  end
+
 end

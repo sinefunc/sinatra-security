@@ -11,6 +11,7 @@ module Sinatra
 
     def self.registered(app)
       app.helpers Helpers
+
       app.set :login_error_message, "Wrong Email and/or Password combination."
       app.set :login_url,           "/login"
       app.set :login_user_class,    :User
@@ -22,6 +23,32 @@ module Sinatra
         else
           session[:error] = settings.login_error_message
           redirect settings.login_url
+        end
+      end
+    end
+    
+    # Allows you to declaratively declare secured locations based on their
+    # path prefix.
+    #
+    # @example
+    #   
+    #   require_login '/admin'
+    #
+    #   get '/admin/posts' do
+    #     # Posts here
+    #   end
+    #
+    #   get '/admin/users' do
+    #     # Users here
+    #   end
+    #
+    # @param [#to_s] path_prefix a string to match again the start of 
+    #                request.fullpath
+    # @return [nil]
+    def require_login(path_prefix)
+      before do
+        if request.fullpath =~ /^#{path_prefix}/
+          require_login
         end
       end
     end
