@@ -70,7 +70,7 @@ module Sinatra
       # @param [Proc] finder (defaults to User[id]) allows you to pass in a
       #               different finder method. 
       # @return [User] or alternatively, an instance of settings.login_user_class
-      def current_user(finder = lambda { |id| login_user_class[id] })
+      def current_user(finder = lambda { |id| __USER__[id] })
         @current_user ||= finder.call(session[:user]) if session[:user]
       end
       
@@ -104,19 +104,24 @@ module Sinatra
       def logout!
         session.delete(:user) 
       end
-
+     
+      # Internally used by the POST /login route handler.
+      #
+      # @param [Hash] opts The hash containing :username and :password.
+      # @option opts [#to_s] :username The username of a User.
+      # @option opts [String] :password The password of a User.
+      # @return [String] the `id` of the user if found.
+      # @return [nil] if no user matches the :username / :password combination.
+      def authenticate(opts)
+        if user = __USER__.authenticate(opts[:username], opts[:password])
+          session[:user] = user.id
+        end
+      end
 
       # @private transforms settings.login_user_class to a constant, 
       #          and used by current_user
-      def login_user_class
+      def __USER__
         Object.const_get(settings.login_user_class)
-      end
- 
-      # @private internally used by the POST /login route handler.
-      def authenticate(params)
-        if user = ::User.authenticate(params[:username], params[:password])
-          session[:user] = user.id
-        end
       end
   
       # @private internally used by Sinatra::Security::Helpers#require_login
