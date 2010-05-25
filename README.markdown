@@ -35,6 +35,8 @@ Some advanced stuff you might want to do
     require 'sinatra/security'
     require 'ohm'
     
+    # we set a different attribute name here. 
+    # the default used is :email, but we can choose whatever we want.
     Sinatra::Security::LoginField.attr_name :login
 
     class User < Ohm::Model
