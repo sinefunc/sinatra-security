@@ -46,6 +46,64 @@ class UserDefaultValidation < TestFixtures::User
 end
 
 class TestValidations < Test::Unit::TestCase
+  context "with a different login field" do
+    class User < TestFixtures::User
+      include Sinatra::Security::Validations
+      
+      attr_accessor :login
+
+      def errors
+        @errors ||= []
+      end
+    end
+
+    setup do
+      Sinatra::Security::LoginField.attr_name :login 
+    end
+
+    teardown do
+      Sinatra::Security::LoginField.attr_name :email
+    end
+  
+    context "when a new record" do
+      should "assert login present" do
+        user = User.new
+        user.expects(:new?).returns(true)
+        user.validate
+
+        assert_equal [[:login, :not_present], [:password, :not_present]],
+          user.errors
+      end
+
+      should "assert login unique" do
+        user = User.new
+        user.login = 'login'
+        user.expects(:new?).returns(true)
+        user.expects(:assert_unique).with(:login)
+        user.validate
+      end
+    end
+
+    context "when an existing record" do
+      should "still assert login present" do
+        user = User.new
+        user.expects(:new?).returns(false)
+        user.validate
+
+        assert_equal [[:login, :not_present]], user.errors
+      end
+
+      should "assert login unique" do
+        user = User.new
+        user.login = 'login'
+        user.expects(:new?).returns(false)
+        user.expects(:assert_unique).with(:login)
+        user.validate
+      end
+    end
+
+  end
+
   context "without an email" do
     should "require the email to be present" do
       user = UserWithEmailValidation.new
