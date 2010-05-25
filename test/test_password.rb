@@ -21,8 +21,13 @@ class TestPassword < Test::Unit::TestCase
   include Sinatra::Security
 
   describe "#update" do
-    should "return a 192 character string" do
-      assert_equal 192, Password::Hashing.update('123456').length
+    should "return a 192 character string by default" do
+      assert_equal 192, Password::Hashing.encrypt('123456').length
+    end
+
+    should "return a different length if you pass a custom salt" do
+      assert_equal 140, 
+        Password::Hashing.encrypt('123456', '123456789012').length
     end
   end
 
@@ -30,7 +35,14 @@ class TestPassword < Test::Unit::TestCase
     should "be able to match the original password given" do
       @password = 'password100'
 
-      assert Password::Hashing.check(@password, Password::Hashing.update(@password))
+      assert Password::Hashing.check(@password, Password::Hashing.encrypt(@password))
+    end
+
+    should "be able to match original pass given custom salt" do
+      password = 'password100'
+      crypted  = Password::Hashing.encrypt(password, 'customsalt')
+
+      assert Password::Hashing.check(password, crypted)
     end
   end
 
