@@ -11,13 +11,17 @@ module Sinatra
 
     def self.registered(app)
       app.helpers Helpers
-
+      app.set :login_error_message, "Wrong Email and/or Password combination."
+      app.set :login_url,           "/login"
+      app.set :login_user_class,    :User
+      app.set :ignored_by_return_to, /(jpe?g|png|gif|css|js)$/
+        
       app.post '/login' do
         if authenticate(params)
-          redirect_to_stored
+          redirect_to_return_url
         else
-          session[:error] = "Wrong Username/Email and Password combination."
-          redirect '/login'
+          session[:error] = settings.login_error_message
+          redirect settings.login_url
         end
       end
     end

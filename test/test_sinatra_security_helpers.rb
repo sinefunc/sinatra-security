@@ -27,6 +27,9 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
 
   describe "when session[:user] is set to 1" do
     setup do
+      @settings = stub("Settings", :login_user_class => :User)
+
+      @context.stubs(:settings).returns(@settings)
       @context.session[:user] = 1
     end
 
@@ -83,15 +86,27 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
   
   describe "#require_login" do
     context "when logged_in?" do
-      should "return true" do
+      should "not redirect" do
+        @settings = stub("Settings", :ignored_by_return_to => /foobared$/,
+                                     :login_url => '/new-login-url')
+        @context.stubs(:settings).returns(@settings)
+
+
+        @context.expects(:redirect).never
         @context.expects(:logged_in?).returns(true)
-        assert @context.require_login 
+
+        @context.require_login 
       end
     end
 
     context "when not logged_in?" do
       setup do
         @context.stubs(:logged_in?).returns(false)
+        @settings = stub("Settings", :ignored_by_return_to => /foobared$/,
+                                     :login_url => '/new-login-url')
+
+        @context.stubs(:settings).returns(@settings)
+
         @context.request = stub("Request", :fullpath => "/some/fullpath/here")
       end
 
@@ -102,13 +117,22 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
       end
 
       should "redirect to /login" do
-        @context.expects(:redirect).with('/login')
+        @context.expects(:redirect).with('/new-login-url')
 
         @context.require_login
       end
 
       should "return false" do
         assert ! @context.require_login
+      end
+
+      context "when the request matches ignored" do
+        should "not store the fullpath in return_to" do
+          @context.request = stub("Request", :fullpath => "/some/fullpath/foobared")
+          @context.require_login
+
+          assert_nil @context.session[:return_to]
+        end
       end
     end
   end
