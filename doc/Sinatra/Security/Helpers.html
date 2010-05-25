@@ -1,0 +1,869 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: Sinatra::Security::Helpers</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (H)</a> &raquo; 
+    <span class='title'><a href="../../Sinatra.html" title="Sinatra (module)">Sinatra</a></span> &raquo; <span class='title'><a href="../Security.html" title="Sinatra::Security (module)">Security</a></span>
+     &raquo; 
+    <span class="title">Helpers</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Sinatra::Security::Helpers 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/sinatra/security/helpers.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authenticate-instance_method" title="#authenticate (instance method)">- (String<sup>?</sup>) <strong>authenticate</strong>(opts) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Internally used by the POST /login route handler.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#current_user-instance_method" title="#current_user (instance method)">- (User) <strong>current_user</strong>(finder = lambda { |id| __USER__[id] }) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Returns the currently logged in user, identified through session[:user].
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ensure_current_user-instance_method" title="#ensure_current_user (instance method)">- (Object) <strong>ensure_current_user</strong>(user) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Used for simple atomic authorization rules on a per action / route basis.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#logged_in%3F-instance_method" title="#logged_in? (instance method)">- (true, false) <strong>logged_in?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#logout%21-instance_method" title="#logout! (instance method)">- (Object) <strong>logout!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The method says it all.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#redirect_to_return_url-instance_method" title="#redirect_to_return_url (instance method)">- (Object) <strong>redirect_to_return_url</strong>(session_key = :return_to, default = '/') </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Dynamic redirection based on the return path that was set.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#require_login-instance_method" title="#require_login (instance method)">- (Object) <strong>require_login</strong>(login_url = settings.login_url) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+The main gateway.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="authenticate-instance_method">
+  
+    - (<tt>String</tt><sup>?</sup>) <strong>authenticate</strong>(opts) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Internally used by the POST /login route handler.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <span class='name'>opts</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+The hash containing :username and :password.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    <h3>Options Hash (<tt>opts</tt>):</h3>
+    <ul class="option">
+      
+        <li>
+          <span class="type">(<tt>#to_s</tt>)</span>
+          <span class="name">:username</span>
+          <span class="default">
+            
+              <span class="na">N/A</span>
+            
+          </span>
+          &mdash;<div class='inline'><p>
+The username of a User.
+</p>
+</div>
+        </tr>
+      
+        <li>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="name">:password</span>
+          <span class="default">
+            
+              <span class="na">N/A</span>
+            
+          </span>
+          &mdash;<div class='inline'><p>
+The password of a User.
+</p>
+</div>
+        </tr>
+      
+    </ul>
+  
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the `id` of the user if found.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+if no user matches the :username / :password combination.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117
+118
+119</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 115</span>
+
+<span class='kw'>def</span> <span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='id opts'>opts</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id user'>user</span> <span class='op'>=</span> <span class='id __USER__'>__USER__</span><span class='period'>.</span><span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='id opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id user'>user</span><span class='period'>.</span><span class='id id'>id</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="current_user-instance_method">
+  
+    - (<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt>) <strong>current_user</strong>(finder = lambda { |id| __USER__[id] }) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Returns the currently logged in user, identified through session[:user].
+The default finder uses User[id], based on Ohm&#8217;s finder method.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code">
+<span class='comment'># ActiveRecord style finders
+</span><span class='id current_user'>current_user</span><span class='lparen'>(</span><span class='id lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='const'>User</span><span class='period'>.</span><span class='id find'>find</span><span class='lparen'>(</span><span class='id id'>id</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+
+<span class='comment'># Also, if you change the settings to use a different user class,
+</span><span class='comment'># then that will be respected
+</span><span class='id set'>set</span> <span class='symbol'>:login_user_class</span><span class='comma'>,</span> <span class='symbol'>:SuperUser</span>
+
+<span class='comment'># assuming session[:user] == 1
+</span><span class='id current_user'>current_user</span> <span class='op'>==</span> <span class='const'>SuperUser</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+<span class='comment'># =&gt; true</span></pre>
+    
+  </div>
+<h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Proc</tt>)</span>
+      
+      
+        <span class='name'>finder</span>
+      
+      
+        <em class="default">(defaults to: <tt>lambda { |id| __USER__[id] }</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>
+(defaults to User[id]) allows you to pass in a different finder method.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+or alternatively, an instance of settings.login_user_class
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="http://ohm.keyvalue.org" title="http://ohm.keyvalue.org">http://ohm.keyvalue.org</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+73
+74
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 73</span>
+
+<span class='kw'>def</span> <span class='id current_user'>current_user</span><span class='lparen'>(</span><span class='id finder'>finder</span> <span class='op'>=</span> <span class='id lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id __USER__'>__USER__</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@current_user</span> <span class='op'>||=</span> <span class='id finder'>finder</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="ensure_current_user-instance_method">
+  
+    - (<tt>Object</tt>) <strong>ensure_current_user</strong>(user) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Used for simple atomic authorization rules on a per action / route basis.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code">
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/posts/:id/edit</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span>
+  <span class='id post'>post</span> <span class='op'>=</span> <span class='const'>Post</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span>
+  <span class='id ensure_current_user'>ensure_current_user</span> <span class='id post'>post</span><span class='period'>.</span><span class='id author'>author</span> <span class='comment'># halts to a 404 if not satisfied.
+</span>
+  <span class='comment'># the rest of this gets executed when 
+</span>  <span class='comment'># the author is indeed the current user.
+</span><span class='kw'>end</span></pre>
+    
+  </div>
+<h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt>)</span>
+      
+      
+        <span class='name'>a</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+user object.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id ensure_current_user'>ensure_current_user</span><span class='lparen'>(</span><span class='id user'>user</span><span class='rparen'>)</span>
+  <span class='id halt'>halt</span> <span class='int'>404</span> <span class='kw'>unless</span> <span class='id user'>user</span> <span class='op'>==</span> <span class='id current_user'>current_user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="logged_in?-instance_method">
+  
+    - (<tt>true</tt>, <tt>false</tt>) <strong>logged_in?</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt>true</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+if the user is logged in
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>false</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+if the user is not logged in
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id logged_in?'>logged_in?</span>
+  <span class='op'>!</span><span class='op'>!</span> <span class='id current_user'>current_user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="logout!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>logout!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+The method says it all. Mostly for keeping responsibility where it belongs,
+instead of letting the application code deal with the session keys
+themselves.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='id logout!'>logout!</span>
+  <span class='id session'>session</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span> 
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="redirect_to_return_url-instance_method">
+  
+    - (<tt>Object</tt>) <strong>redirect_to_return_url</strong>(session_key = :return_to, default = '/') 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Dynamic redirection based on the return path that was set.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code">
+<span class='comment'># By default assumes you use :return_to and '/'.
+</span><span class='comment'># You can use this in your code as well. i.e.
+</span><span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/fb/login</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+  <span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:fb_return_to</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id params'>params</span><span class='lbracket'>[</span><span class='symbol'>:from</span><span class='rbracket'>]</span>
+  <span class='comment'># redirect to fb OAuth URI here.
+</span><span class='kw'>end</span>
+
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/fb/success</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+  <span class='comment'># successfully processed, save whatever here
+</span>  <span class='id redirect_to_return_url'>redirect_to_return_url</span> <span class='symbol'>:fb_return_to</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/home</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    
+  </div>
+<h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <span class='name'>session_key</span>
+      
+      
+        <em class="default">(defaults to: <tt>:return_to</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the key in the session, defaults to :return_to.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <span class='name'>default</span>
+      
+      
+        <em class="default">(defaults to: <tt>'/'</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>
+url when no stored value is found in session[session_key]. defaults to
+&#8217;/&#8217;.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id redirect_to_return_url'>redirect_to_return_url</span><span class='lparen'>(</span><span class='id session_key'>session_key</span> <span class='op'>=</span> <span class='symbol'>:return_to</span><span class='comma'>,</span> <span class='id default'>default</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='id redirect'>redirect</span> <span class='id session'>session</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:return_to</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id default'>default</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="require_login-instance_method">
+  
+    - (<tt>Object</tt>) <strong>require_login</strong>(login_url = settings.login_url) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+The main gateway. This method will redirect if no user is currently
+authenticated.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code">
+<span class='id get'>get</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/secured</span><span class='tstring_end'>'</span></span> <span class='kw'>do</span>
+  <span class='id require_login'>require_login</span>
+
+  <span class='comment'># do super private thing here
+</span><span class='kw'>end</span></pre>
+    
+  </div>
+<h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <span class='name'>login_url</span>
+      
+      
+        <em class="default">(defaults to: <tt>settings.login_url</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>
+(defaults to /login) the url of the login form. take not that even if you
+specify a different login form, the POST action for that form should still
+be &#8217;/login&#8217;.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id require_login'>require_login</span><span class='lparen'>(</span><span class='id login_url'>login_url</span> <span class='op'>=</span> <span class='id settings'>settings</span><span class='period'>.</span><span class='id login_url'>login_url</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id logged_in?'>logged_in?</span>
+
+  <span class='kw'>if</span> <span class='id should_return_to?'>should_return_to?</span><span class='lparen'>(</span><span class='id request'>request</span><span class='period'>.</span><span class='id fullpath'>fullpath</span><span class='rparen'>)</span>
+    <span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:return_to</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id request'>request</span><span class='period'>.</span><span class='id fullpath'>fullpath</span>
+  <span class='kw'>end</span>
+  <span class='id redirect'>redirect</span> <span class='id login_url'>login_url</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed May 26 06:01:16 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.9.1).
+</div>
+
+  </body>
+</html>

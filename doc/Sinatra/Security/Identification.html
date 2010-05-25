@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Module: Sinatra::Security::Identification</title>
+<link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '../..';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (I)</a> &raquo; 
+    <span class='title'><a href="../../Sinatra.html" title="Sinatra (module)">Sinatra</a></span> &raquo; <span class='title'><a href="../Security.html" title="Sinatra::Security (module)">Security</a></span>
+     &raquo; 
+    <span class="title">Identification</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Sinatra::Security::Identification 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/sinatra/security/identification.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>
+The identification module is mixed into Sinatra::Security::User. The API
+loosely applies to Ohm, although it will work with ActiveRecord.
+</p>
+<p>
+If you wish to override any of these, it&#8217;s as simple as defining your
+own method in your User class.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h3>Examples:</h3>
+    
+      <h4><div class='inline'></div></h4>
+      <pre class="example code">
+<span class='kw'>class</span> <span class='const'>User</span> <span class='op'>&lt;</span> <span class='const'>Ohm</span><span class='op'>::</span><span class='const'>Model</span>
+  <span class='id include'>include</span> <span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Security</span><span class='op'>::</span><span class='const'>User</span>
+<span class='kw'>end</span>
+
+<span class='const'>User</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:find_by_login</span><span class='rparen'>)</span>
+<span class='comment'># =&gt; true
+</span>
+<span class='const'>User</span><span class='period'>.</span><span class='id respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:authenticate</span><span class='rparen'>)</span>
+<span class='comment'># =&gt; true</span></pre>
+    
+  </div>
+
+</div>
+
+
+  
+    <h2>Instance Method Summary</h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#authenticate-instance_method" title="#authenticate (instance method)">- (User<sup>?</sup>) <strong>authenticate</strong>(login, password) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Finds the User matching the given login / password combination.
+</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_by_login-instance_method" title="#find_by_login (instance method)">- (User<sup>?</sup>) <strong>find_by_login</strong>(login) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>
+Used internally by User::authenticate to find the user given the `:email`
+value.
+</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+    
+    
+      <div class="method_details first">
+  <p class="signature first" id="authenticate-instance_method">
+  
+    - (<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt><sup>?</sup>) <strong>authenticate</strong>(login, password) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Finds the User matching the given login / password combination.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>#to_s</tt>)</span>
+      
+      
+        <span class='name'>login</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the value of `:email` in your datastore.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <span class='name'>password</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the raw password for the user in `:email`.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the user matching the credentials if found.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+if no matching user found.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="Helpers.html#authenticate-instance_method" title="Sinatra::Security::Helpers#authenticate (method)">Sinatra::Security::Helpers#authenticate</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/identification.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='id login'>login</span><span class='comma'>,</span> <span class='id password'>password</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id user'>user</span> <span class='op'>=</span> <span class='id find_by_login'>find_by_login</span><span class='lparen'>(</span><span class='id login'>login</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Security</span><span class='op'>::</span><span class='const'>Password</span><span class='op'>::</span><span class='const'>Hashing</span><span class='period'>.</span><span class='id check'>check</span><span class='lparen'>(</span><span class='id password'>password</span><span class='comma'>,</span> <span class='id user'>user</span><span class='period'>.</span><span class='id crypted_password'>crypted_password</span><span class='rparen'>)</span>
+      <span class='id user'>user</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="find_by_login-instance_method">
+  
+    - (<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt><sup>?</sup>) <strong>find_by_login</strong>(login) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+Used internally by User::authenticate to find the user given the `:email`
+value.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Parameters:</h3>
+<ul class="param">
+  
+    <li>
+      
+        <span class='type'>(<tt>#to_s</tt>)</span>
+      
+      
+        <span class='name'>login</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+the value of `:email` in your datastore. You may also override the key
+used.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+<h3>Returns:</h3>
+<ul class="return">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="User.html" title="Sinatra::Security::User (module)">User</a></tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+an instance of User if found.
+</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='type'>(<tt>nil</tt>)</span>
+      
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>
+if no user found with the given login value.
+</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <h3>See Also:</h3>
+  <ul class="see">
+    
+      <li><a href="LoginField.html#attr_name-class_method" title="Sinatra::Security::LoginField.attr_name (method)">Sinatra::Security::LoginField::attr_name</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/identification.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id find_by_login'>find_by_login</span><span class='lparen'>(</span><span class='id login'>login</span><span class='rparen'>)</span>
+  <span class='id find'>find</span><span class='lparen'>(</span><span class='id __LOGIN_FIELD__'>__LOGIN_FIELD__</span> <span class='op'>=&gt;</span> <span class='id login'>login</span><span class='rparen'>)</span><span class='period'>.</span><span class='id first'>first</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Wed May 26 06:01:16 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.9.1).
+</div>
+
+  </body>
+</html>
