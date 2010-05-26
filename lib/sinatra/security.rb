@@ -16,7 +16,7 @@ module Sinatra
 
       app.set :login_error_message, "Wrong Email and/or Password combination."
       app.set :login_url,           "/login"
-      app.set :login_user_class,    :User
+      app.set :login_user_class,    lambda { ::User }
       app.set :ignored_by_return_to, /(jpe?g|png|gif|css|js)$/
         
       app.post '/login' do

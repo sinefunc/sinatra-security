@@ -27,7 +27,7 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
 
   describe "when session[:user] is set to 1" do
     setup do
-      @settings = stub("Settings", :login_user_class => :User)
+      @settings = stub("Settings", :login_user_class => ::User)
 
       @context.stubs(:settings).returns(@settings)
       @context.session[:user] = 1
@@ -40,7 +40,8 @@ class TestSinatraSecurityHelpers < Test::Unit::TestCase
     end
 
     should "return the found user as the result" do
-      User.stubs(:[]).returns(:user)
+      # User.stubs(:[]).returns(:user)
+      User.expects(:[]).at_least_once.returns(:user)
 
       assert_equal :user, @context.current_user
     end

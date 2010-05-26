@@ -61,7 +61,11 @@ module Sinatra
       #
       #   # Also, if you change the settings to use a different user class,
       #   # then that will be respected
-      #   set :login_user_class, :SuperUser
+      #   # this assumes SuperUser is already defined
+      #   set :login_user_class, SuperUser 
+      #
+      #   # if you want to lazily evaluate the class you can wrap it in a proc
+      #   set :login_user_class, lambda { SuperUser }
       #
       #   # assuming session[:user] == 1
       #   current_user == SuperUser[1]
@@ -118,10 +122,9 @@ module Sinatra
         end
       end
 
-      # @private transforms settings.login_user_class to a constant, 
-      #          and used by current_user
+      # @private convencience method for settings.login_user_class
       def __USER__
-        Object.const_get(settings.login_user_class)
+        settings.login_user_class
       end
   
       # @private internally used by Sinatra::Security::Helpers#require_login

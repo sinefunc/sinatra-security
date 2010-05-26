@@ -164,5 +164,4 @@ class TestSinatraSecurity < Test::Unit::TestCase
       assert_equal '/login', last_response.headers['Location']
     end
   end
-
 end
