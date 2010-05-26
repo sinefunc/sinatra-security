@@ -354,14 +354,14 @@ if no user matches the :username / :password combination.
       <pre class="lines">
 
 
-115
-116
-117
-118
-119</pre>
+119
+120
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='id opts'>opts</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id user'>user</span> <span class='op'>=</span> <span class='id __USER__'>__USER__</span><span class='period'>.</span><span class='id authenticate'>authenticate</span><span class='lparen'>(</span><span class='id opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:username</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id opts'>opts</span><span class='lbracket'>[</span><span class='symbol'>:password</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -402,7 +402,11 @@ The default finder uses User[id], based on Ohm&#8217;s finder method.
 
 <span class='comment'># Also, if you change the settings to use a different user class,
 </span><span class='comment'># then that will be respected
-</span><span class='id set'>set</span> <span class='symbol'>:login_user_class</span><span class='comma'>,</span> <span class='symbol'>:SuperUser</span>
+</span><span class='comment'># this assumes SuperUser is already defined
+</span><span class='id set'>set</span> <span class='symbol'>:login_user_class</span><span class='comma'>,</span> <span class='const'>SuperUser</span> 
+
+<span class='comment'># if you want to lazily evaluate the class you can wrap it in a proc
+</span><span class='id set'>set</span> <span class='symbol'>:login_user_class</span><span class='comma'>,</span> <span class='id lambda'>lambda</span> <span class='lbrace'>{</span> <span class='const'>SuperUser</span> <span class='rbrace'>}</span>
 
 <span class='comment'># assuming session[:user] == 1
 </span><span class='id current_user'>current_user</span> <span class='op'>==</span> <span class='const'>SuperUser</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
@@ -465,12 +469,12 @@ or alternatively, an instance of settings.login_user_class
       <pre class="lines">
 
 
-73
-74
-75</pre>
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id current_user'>current_user</span><span class='lparen'>(</span><span class='id finder'>finder</span> <span class='op'>=</span> <span class='id lambda'>lambda</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id id'>id</span><span class='op'>|</span> <span class='id __USER__'>__USER__</span><span class='lbracket'>[</span><span class='id id'>id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@current_user</span> <span class='op'>||=</span> <span class='id finder'>finder</span><span class='period'>.</span><span class='id call'>call</span><span class='lparen'>(</span><span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id session'>session</span><span class='lbracket'>[</span><span class='symbol'>:user</span><span class='rbracket'>]</span>
@@ -540,12 +544,12 @@ user object.
       <pre class="lines">
 
 
-97
-98
-99</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id ensure_current_user'>ensure_current_user</span><span class='lparen'>(</span><span class='id user'>user</span><span class='rparen'>)</span>
   <span class='id halt'>halt</span> <span class='int'>404</span> <span class='kw'>unless</span> <span class='id user'>user</span> <span class='op'>==</span> <span class='id current_user'>current_user</span>
@@ -610,12 +614,12 @@ if the user is not logged in
       <pre class="lines">
 
 
-79
-80
-81</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id logged_in?'>logged_in?</span>
   <span class='op'>!</span><span class='op'>!</span> <span class='id current_user'>current_user</span>
@@ -651,12 +655,12 @@ themselves.
       <pre class="lines">
 
 
-104
-105
-106</pre>
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/sinatra/security/helpers.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id logout!'>logout!</span>
   <span class='id session'>session</span><span class='period'>.</span><span class='id delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:user</span><span class='rparen'>)</span> 
@@ -860,7 +864,7 @@ be &#8217;/login&#8217;.
 </div>
     
     <div id="footer">
-  Generated on Wed May 26 06:16:44 2010 by 
+  Generated on Wed May 26 11:40:13 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.5.4 (ruby-1.9.1).
 </div>
