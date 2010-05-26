@@ -2,7 +2,7 @@ require 'sinatra/base'
 
 module Sinatra
   module Security
-    VERSION = "0.2.0"
+    VERSION = "0.2.1"
 
     autoload :Helpers,        'sinatra/security/helpers'
     autoload :User,           'sinatra/security/user'
