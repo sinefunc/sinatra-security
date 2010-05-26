@@ -26,6 +26,11 @@ class BasicApp < Sinatra::Base
   get '/mass/private2' do
     "Private 2"
   end
+  
+  require_login '/admin.html'
+  get '/admin.html' do
+    "Admin"
+  end
 
   get '/css/main.css' do
     require_login
@@ -164,4 +169,14 @@ class TestSinatraSecurity < Test::Unit::TestCase
       assert_equal '/login', last_response.headers['Location']
     end
   end
+
+  describe "going to /admin.html" do
+    should "redirect to /login" do
+      get '/admin.html'
+
+      assert_equal 302, last_response.status
+      assert_equal '/login', last_response.headers['Location']
+    end
+  end
+
 end
