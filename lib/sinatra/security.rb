@@ -14,6 +14,7 @@ module Sinatra
     def self.registered(app)
       app.helpers Helpers
 
+      app.set :login_success_message, "You have successfully logged in."
       app.set :login_error_message, "Wrong Email and/or Password combination."
       app.set :login_url,           "/login"
       app.set :login_user_class,    lambda { ::User }
@@ -21,6 +22,7 @@ module Sinatra
         
       app.post '/login' do
         if authenticate(params)
+          session[:success] = settings.login_success_message
           redirect_to_return_url
         else
           session[:error] = settings.login_error_message
