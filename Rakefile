@@ -10,7 +10,8 @@ begin
     gem.email = "cyx.ucron@gmail.com"
     gem.homepage = "http://github.com/sinefunc/sinatra-security"
     gem.authors = ["Cyril David"]
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency "sinatra", ">= 1"
+    gem.add_development_dependency "rack-test", ">= 0"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
